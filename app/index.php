@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Mysite</title>
     <link rel="stylesheet" href="style/main.css">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" 
+   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" 
           integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"> <!-- Bootstrap -->
 </head>
 <body>
@@ -36,8 +36,11 @@
         
 <?php
     try {
-
-        $stmt = $db->query('SELECT postID, title, postdesc, date FROM list ORDER BY date DESC');
+			
+				$pages = new Paginator('6','p');
+				$stmt = $db->query('SELECT postID FROM list');
+				$pages->set_total($stmt->rowCount());
+        $stmt = $db->query('SELECT postID, title, postdesc, date FROM list ORDER BY date DESC '.$pages->get_limit());
         while($row = $stmt->fetch()){
             
             echo '<div>';
@@ -48,31 +51,13 @@
             echo '</div>';
 
         }
+			
+			echo '<nav>'.$pages->page_links().'</nav>';
 
     } catch(PDOException $e) {
         echo $e->getMessage();
     }
-?>
-        
-        <nav>
-          <ul class="pagination">
-            <li>
-                <span aria-hidden="true">&laquo;</span>
-              </a>
-            </li>
-            <li class="active"><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li>
-              <a href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-
+?>       
 	</div>
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
