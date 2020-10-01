@@ -1,2 +1,2 @@
 # Artemis
-Another low effort pr lol what is going on.
+Another one of low effort pr lol what is going on.
