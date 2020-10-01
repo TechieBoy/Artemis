@@ -1,2 +1,2 @@
 # Artemis
-Another low effort pr lol what is going on.
+This is a simple website to test Hacktober fest spam
